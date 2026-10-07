@@ -1,0 +1,10 @@
+[
+{"name":"NLCS","fullName":"노스런던컬리지에잇스쿨 제주","group":"국제학교","lat":33.2977115,"lon":126.2887232,"source":"https://www.openstreetmap.org/relation/11636223"},
+{"name":"BHA","fullName":"브랭섬홀아시아","group":"국제학교","lat":33.2907439,"lon":126.2875450,"source":"https://www.openstreetmap.org/way/424918887"},
+{"name":"KIS","fullName":"한국국제학교 제주","group":"국제학교","lat":33.2883700,"lon":126.2840841,"source":"https://www.openstreetmap.org/node/4464703189"},
+{"name":"SJA","fullName":"세인트존스베리아카데미 제주","group":"국제학교","lat":33.2850165,"lon":126.2843764,"source":"https://www.openstreetmap.org/node/5188414521"},
+{"name":"신화월드","fullName":"제주신화월드","group":"관광지","lat":33.3064315,"lon":126.3157232,"source":"https://www.openstreetmap.org/way/712591931"},
+{"name":"오설록","fullName":"오설록 티뮤지엄","group":"관광지","lat":33.3061119561,"lon":126.2894033948,"source":"https://data.visitkorea.or.kr/linkedview/2660802"},
+{"name":"생각하는 정원","fullName":"생각하는 정원","group":"관광지","lat":33.3252630,"lon":126.2549289,"source":"https://www.openstreetmap.org/way/371667202"},
+{"name":"곶자왈환상숲","fullName":"환상숲곶자왈공원","group":"관광지","lat":33.3229380,"lon":126.2628932,"source":"https://www.openstreetmap.org/way/375187206"}
+]
