@@ -7,6 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231455B5'/%3E%3Cpath d='M10 8h12v16H10zM7 11v16h12' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
 <style>
 :root{font-family: 'Malgun Gothic', 'Apple SD Gothic Neo',sans-serif;color:#1c2b3f;background:#f5f7fa;font-size:16px}*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:52px auto;padding:0 24px}header{margin-bottom:28px}.eyebrow{color:#1455b5;font-size:14px;font-weight:700;letter-spacing:.08em}h1{font-size:30px;letter-spacing:-.05em;margin:10px 0 12px}p{line-height:1.7;margin:8px 0;color:#627084}.card{background:white;border:1px solid #e1e6ed;border-radius:16px;padding:26px;margin-bottom:20px;box-shadow:0 4px 20px #1c2b3f04}.row{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}h2{font-size:18px;margin:0;letter-spacing:-.03em}.step{display:inline-flex;align-items:center;justify-content:center;background:#edf3fc;color:#1455b5;border-radius:8px;width:30px;height:30px;font-size:14px;margin-right:10px}.buttons{display:flex;gap:10px;flex-wrap:wrap}button{font:inherit;font-weight:700;border:1px solid #dce3ec;border-radius:9px;padding:11px 16px;cursor:pointer;background:white;color:#1c2b3f;min-height:44px}button:hover{background:#f2f5fa}button.primary{background:#1455b5;border-color:#1455b5;color:white}button.primary:hover{background:#104590}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #8bb6ef;outline-offset:3px}.note{font-size:14px;margin-top:14px}label{display:block;font-weight:700;margin:22px 0 10px}textarea{width:100%;padding:18px;border:1px solid #dbe2ec;border-radius:10px;resize:vertical;min-height:280px;font:inherit;line-height:1.8;color:#1c2b3f;background:#fcfdff}textarea::placeholder{color:#8995a6}.counter{font-size:14px;color:#627084}.bottom{margin-top:14px}details{margin-top:22px;border-top:1px solid #edf0f4;padding-top:18px}summary{cursor:pointer;color:#627084;font-size:14px;padding:4px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto;font:14px/1.8 'Malgun Gothic',sans-serif;background:#f7f9fc;padding:18px;border-radius:8px}#status{min-height:28px;color:#1455b5;font-size:14px;margin:12px 0}#manual{margin-top:16px;background:#fff9e9;padding:16px;border-radius:8px}#manual textarea{min-height:140px;background:white}footer{font-size:14px;color:#788595;text-align:center;padding:6px 0 28px}@media(max-width:600px){main{margin:28px auto;padding:0 16px}h1{font-size:25px}.card{padding:20px}.buttons{width:100%}.buttons button{flex:1}textarea{min-height:260px}.bottom .primary{width:100%}}
+.preview-label{font-size:16px;margin:22px 0 12px}#blog-frame{display:block;width:100%;height:420px;border:1px solid #dbe2ec;border-radius:10px;background:white}#blog-code{min-height:220px;font-family:Consolas,monospace;font-size:14px}#blog-status{color:#1455b5;overflow-wrap:anywhere}@media(max-width:600px){#blog-frame{height:360px}}
 </style>
 </head>
 <body>
@@ -23,6 +24,15 @@
 <div class="row bottom"><span class="counter" id="count">0자</span><button class="primary" id="copy-prompt" disabled>프롬프트 복사</button></div>
 <p class="note">안내문 → 줄바꿈 10번 → 원문 → 줄바꿈 5번 → 블로그 작성 지침</p>
 <details><summary>완성된 프롬프트 미리보기</summary><pre id="preview">원문을 입력하면 완성된 프롬프트가 표시됩니다.</pre></details>
+</section>
+<section class="card" aria-labelledby="blog-title">
+<h2 id="blog-title"><span class="step">3</span>작성된 코드를 블로그로 바로 붙여넣기</h2>
+<label for="blog-code">LLM에서 작성된 HTML 코드</label>
+<textarea id="blog-code" placeholder="LLM에서 작성된 HTML 코드를 여기에 붙여 넣으세요. HTML 코드 블록 전체를 붙여 넣어도 됩니다." spellcheck="false"></textarea>
+<div class="row bottom"><span class="counter" id="blog-state">HTML 코드를 입력하면 아래에 미리보기가 나타납니다.</span><button class="primary" id="copy-blog" disabled>블로그 내용 복사</button></div>
+<p class="note">복사 후 블로그 글쓰기 화면에 Ctrl+V 또는 ⌘V로 붙여 넣으세요. 색상·굵기·표 등은 블로그 편집기가 지원하는 범위에서 유지됩니다.</p>
+<div id="blog-result" hidden><h3 class="preview-label">블로그 미리보기</h3><iframe id="blog-frame" title="블로그 HTML 미리보기" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe></div>
+<p id="blog-status" class="note" role="status" aria-live="polite"></p>
 </section>
 <div id="status" role="status" aria-live="polite"></div>
 <section id="manual" hidden><p>자동 복사를 사용할 수 없습니다. 아래 내용을 선택한 뒤 Ctrl+C 또는 ⌘C로 복사하세요.</p><textarea id="manual-text" readonly aria-label="수동 복사할 내용"></textarea></section>
@@ -49,6 +59,78 @@ document.getElementById('copy-rules').addEventListener('click',()=>copyText(data
 copyPrompt.addEventListener('click',()=>{if(original.value.trim())copyText(buildPrompt(original.value),'프롬프트');});
 document.getElementById('download-rules').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([data.rules],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='서식규칙.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);status.textContent='서식규칙.txt 다운로드를 시작했습니다. 다운로드한 파일을 채팅창에 첨부하세요.';});
 update();
+const blogCode=document.getElementById('blog-code');
+const blogFrame=document.getElementById('blog-frame');
+const copyBlog=document.getElementById('copy-blog');
+const blogStatus=document.getElementById('blog-status');
+let blogRevision=0;
+function cleanBlogHTML(input){
+ const fenced=input.trim().match(/^```(?:html)?\s*\n([\s\S]*?)\n```\s*$/i);
+ const parsed=new DOMParser().parseFromString(fenced?fenced[1]:input,'text/html');
+ parsed.querySelectorAll('script,iframe,frame,frameset,object,embed,applet,base,meta,link,form,input,button,textarea,select,noscript,svg,math').forEach(node=>node.remove());
+ for(const node of parsed.querySelectorAll('*')){
+  for(const attribute of [...node.attributes]){
+   const name=attribute.name.toLowerCase();
+   if(name.startsWith('on')||['srcdoc','autofocus','contenteditable','srcset'].includes(name)){node.removeAttribute(attribute.name);continue;}
+   if(['href','src','xlink:href','action','formaction'].includes(name)){
+    const url=attribute.value.replace(/[\u0000-\u0020]/g,'');
+    if(!/^(https?:|mailto:|tel:|#)/i.test(url)&&!(name==='src'&&/^data:image\/(png|jpeg|gif|webp);base64,/i.test(url)))node.removeAttribute(attribute.name);
+   }
+  }
+ }
+ const headStyles=[...parsed.head.querySelectorAll('style')].map(node=>node.outerHTML).join('');
+ return headStyles+parsed.body.innerHTML;
+}
+function updateBlog(){
+ blogRevision++;
+ copyBlog.disabled=true;
+ blogStatus.textContent='';
+ const input=blogCode.value;
+ document.getElementById('blog-result').hidden=!input.trim();
+ document.getElementById('blog-state').textContent=input.trim()?'미리보기를 준비하고 있습니다.':'HTML 코드를 입력하면 아래에 미리보기가 나타납니다.';
+ if(!input.trim()){blogFrame.srcdoc='';return;}
+ const markup=cleanBlogHTML(input);
+ blogFrame.srcdoc='<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; style-src &#39;unsafe-inline&#39;; img-src https: http: data:; font-src &#39;none&#39;;"><style>body{margin:20px;color:#111;font:16px/2 \'Malgun Gothic\',sans-serif;overflow-wrap:anywhere}img{max-width:100%;height:auto}table{max-width:100%;border-collapse:collapse}.se-text-paragraph-align-center{text-align:center}.se-fs-fs16{font-size:16px}</style></head><body>'+markup+'</body></html>';
+}
+blogFrame.addEventListener('load',()=>{
+ if(!blogCode.value.trim())return;
+ const body=blogFrame.contentDocument?.body;
+ const hasContent=body&&Boolean(body.innerText.trim()||body.querySelector('img,hr'));
+ copyBlog.disabled=!hasContent;
+ document.getElementById('blog-state').textContent=hasContent?'미리보기 준비 완료':'표시할 내용을 포함한 HTML 코드를 입력해 주세요.';
+});
+function renderedClipboard(){
+ const doc=blogFrame.contentDocument;
+ const clone=doc.body.cloneNode(true);
+ const sourceNodes=[doc.body,...doc.body.querySelectorAll('*')];
+ const targetNodes=[clone,...clone.querySelectorAll('*')];
+ const properties=['color','background-color','font-size','font-family','font-weight','font-style','text-decoration','text-align','line-height','white-space','vertical-align','border-collapse','border-top','border-right','border-bottom','border-left','padding-top','padding-right','padding-bottom','padding-left','margin-top','margin-bottom','list-style-type','width','max-width'];
+ sourceNodes.forEach((node,index)=>{
+  if(node.tagName==='STYLE')return;
+  const style=blogFrame.contentWindow.getComputedStyle(node);
+  for(const property of properties)targetNodes[index].style.setProperty(property,style.getPropertyValue(property));
+ });
+ clone.querySelectorAll('style').forEach(node=>node.remove());
+ return {html:'<div style="'+clone.getAttribute('style')+'">'+clone.innerHTML+'</div>',text:doc.body.innerText};
+}
+copyBlog.addEventListener('click',async()=>{
+ if(copyBlog.disabled)return;
+ const revision=blogRevision;
+ const content=renderedClipboard();
+ try{
+  if(!navigator.clipboard?.write||typeof ClipboardItem==='undefined')throw new Error('Rich clipboard unavailable');
+  await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([content.html],{type:'text/html'}),'text/plain':new Blob([content.text],{type:'text/plain'})})]);
+  blogStatus.textContent=revision===blogRevision?'블로그 내용 복사 완료. 블로그 글쓰기 화면에 붙여 넣으세요.':'복사 후 코드가 변경되었습니다. 다시 복사해 주세요.';
+  return;
+ }catch{}
+ const target=document.createElement('div');target.contentEditable='true';target.style.cssText='position:fixed;left:-9999px;top:0';target.innerHTML=content.html;document.body.appendChild(target);
+ const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(target);selection.removeAllRanges();selection.addRange(range);
+ const onCopy=event=>{if(event.clipboardData){event.clipboardData.setData('text/html',content.html);event.clipboardData.setData('text/plain',content.text);event.preventDefault();}};
+ document.addEventListener('copy',onCopy);let copied=false;try{copied=document.execCommand('copy');}catch{}document.removeEventListener('copy',onCopy);selection.removeAllRanges();target.remove();
+ if(copied){blogStatus.textContent='블로그 내용 복사 완료. 블로그 글쓰기 화면에 붙여 넣으세요.';return;}
+ blogFrame.focus();const frameSelection=blogFrame.contentWindow.getSelection();const frameRange=blogFrame.contentDocument.createRange();frameRange.selectNodeContents(blogFrame.contentDocument.body);frameSelection.removeAllRanges();frameSelection.addRange(frameRange);blogStatus.textContent='미리보기의 전체 내용을 선택했습니다. Ctrl+C 또는 ⌘C로 복사한 뒤 블로그에 붙여 넣으세요.';
+});
+blogCode.addEventListener('input',updateBlog);
 </script>
 </body>
 </html>
