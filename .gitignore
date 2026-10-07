@@ -1,0 +1,3 @@
+upload-server/.wrangler/
+upload-server/.dev.vars
+upload-server/.env*

@@ -1,0 +1,11 @@
+{
+ "name":"blog-prompt-image-upload",
+ "main":"worker.mjs",
+ "account_id":"89758407f8b0cebf20f913caca54ce07",
+ "compatibility_date":"2026-10-07",
+ "workers_dev":true,
+ "ratelimits":[
+  {"name":"IP_LIMIT","namespace_id":"1741","simple":{"limit":10,"period":60}},
+  {"name":"TOTAL_LIMIT","namespace_id":"1742","simple":{"limit":30,"period":60}}
+ ]
+}
