@@ -80,3 +80,7 @@ JSON에는 이미지 파일 자체와 히스토리가 포함되지 않습니다.
 ## 공개 이미지 업로드 준비 브랜치
 
 로그인 없는 공개 업로드 서버와 이미지 전용 저장소를 구성했습니다. 인증 연결 대기 상태로 실제 업로드는 아직 활성화되지 않았습니다. 서버 설정·인증 범위·제한·운영 안내는 [upload-server/README.md](upload-server/README.md)에 있습니다. 공개 페이지에는 인증 연결 및 실제 업로드 검증 이후 반영합니다.
+
+## Supabase 전환
+
+사용자 선택에 따라 공개 이미지 업로드는 Supabase로 전환합니다. 프로젝트 주소와 Publishable key 및 저장소 정책 적용 대기 중이며 공개 메인 페이지에는 아직 반영하지 않았습니다. 연결 절차와 설정 SQL은 [supabase/README.md](supabase/README.md), [supabase/setup.sql](supabase/setup.sql)에 있습니다. 이전 upload-server 코드는 미사용 GitHub 방식의 참고 자료입니다.
