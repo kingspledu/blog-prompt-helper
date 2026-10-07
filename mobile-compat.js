@@ -1,0 +1,12 @@
+/* Clipboard compatibility: legacy selection runs inside the original tap, never after await. */
+(function(root){
+function isIOS(){return /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);}
+function legacy(content){const previous=document.activeElement,selection=getSelection(),ranges=[];if(selection)for(let i=0;i<selection.rangeCount;i++)ranges.push(selection.getRangeAt(i).cloneRange());const target=document.createElement(content.html?'div':'textarea');target.style.cssText='position:fixed;left:0;top:0;width:2px;height:2px;opacity:0;font-size:16px;z-index:-1;pointer-events:none';if(content.html){target.contentEditable='true';target.innerHTML=content.html;}else{target.value=content.text;target.readOnly=true;}document.body.append(target);let copied=false;const onCopy=event=>{if(event.clipboardData){event.clipboardData.setData('text/plain',content.text);if(content.html)event.clipboardData.setData('text/html',content.html);event.preventDefault();}};try{target.focus({preventScroll:true});if(content.html){const range=document.createRange();range.selectNodeContents(target);selection.removeAllRanges();selection.addRange(range);}else{target.select();target.setSelectionRange(0,target.value.length);}document.addEventListener('copy',onCopy);copied=document.execCommand('copy');}catch{}finally{document.removeEventListener('copy',onCopy);target.remove();selection?.removeAllRanges();for(const range of ranges)try{selection?.addRange(range);}catch{}if(previous?.isConnected)try{previous.focus({preventScroll:true});}catch{}}return copied;}
+function write(content){
+ // Safari/iOS selection copy must be attempted while the tap still has activation.
+ if(isIOS()&&legacy(content))return Promise.resolve(true);
+ try{if(content.html&&navigator.clipboard?.write&&typeof ClipboardItem!=='undefined'){const item=new ClipboardItem({'text/html':Promise.resolve(new Blob([content.html],{type:'text/html'})),'text/plain':Promise.resolve(new Blob([content.text],{type:'text/plain'}))});return navigator.clipboard.write([item]).then(()=>true,()=>false);}if(!content.html&&navigator.clipboard?.writeText)return navigator.clipboard.writeText(content.text).then(()=>true,()=>false);}catch{}
+ return Promise.resolve(legacy(content));
+}
+root.MobileClipboard={write,legacy,isIOS};
+})(globalThis);

@@ -19,6 +19,7 @@
 textarea,input[type='number'],input[type='file'],.search-row input,.filename-name input,.library-card input,.phone-settings input,select{background:#fffefa;color:var(--ink);border:1.5px solid #b8aa96;border-radius:11px}textarea{line-height:1.8;padding:17px}textarea::placeholder,input::placeholder{color:#958775}textarea:focus,input:focus,select:focus{border-color:var(--ink);background:white}#original{min-height:260px}#blog-code{min-height:210px}input[type='file']{border-style:dashed;padding:12px;background:#fff8e8}input[type='file']::file-selector-button{background:var(--yellow);color:var(--ink);border:1px solid var(--ink);border-radius:7px;font-weight:700}.row{gap:18px}.buttons{gap:11px}.bottom{margin-top:18px}details{border-top:1px dashed #c9bca8;margin-top:22px;padding-top:16px}summary{color:var(--ink);font-weight:700;font-size:14px;min-height:44px;padding:11px 0}summary::marker{color:#75634a}details[open]>summary{margin-bottom:10px}pre{background:#f8efdd;border:1px solid #e0d2bb;color:var(--ink)}#blog-options{background:#fff8e9;border:1px dashed #b8aa96;border-radius:11px;padding:2px 16px}#blog-options>summary{min-height:48px}.phone-settings,.location-picker{border-color:#d9cbb5}.library-card{background:var(--surface);border:1.5px solid var(--ink);border-radius:13px;box-shadow:3px 3px 0 #29241f}.library-card img{background:#f4eddc}.library-image-name{color:var(--muted)}.library-actions{gap:10px}.library-actions button{font-size:13px}.favorite-buttons{gap:10px}.favorite-buttons button{background:#fff8e9;color:var(--ink)}.favorite-buttons button[aria-pressed='true']{background:var(--mint);border-color:var(--ink);color:var(--ink)}.file-result{background:#fff8e9;border:1px solid #c3b59f;border-radius:11px}.file-result[data-state='done']{background:#f0faef;border-color:#7a9b7d}.file-result[data-state='error']{background:#fff0f3;border-color:#c78899}.file-name{color:var(--ink)}.saved-filename{color:#625132}#blog-frame{border:1.5px solid var(--ink);border-radius:12px}#gps-progress{accent-color:#978126}#status,#blog-status,#library-status,#blog-contact-status,#gps-status,#draft-status{color:#6e5027}#manual{background:#ffecae}#draft-panel{margin-top:20px;padding:12px 24px;background:#f8ebcf}#draft-panel>summary{font-size:16px}#draft-panel .row{justify-content:flex-start}footer{color:var(--muted);font-size:12px;line-height:1.9;margin-top:30px;padding:0 10px 24px}
 @media(max-width:600px){main{margin:28px auto;padding:0 18px}header{margin-bottom:26px}.brand-row{margin-bottom:18px}.brand-icon{width:42px;height:42px}h1{font-size:30px;line-height:1.45;letter-spacing:-.06em}header>p{font-size:14px}.quick-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.quick-links a{padding:10px 8px;font-size:13px}.card{padding:22px 18px;margin-bottom:25px;border-radius:15px;box-shadow:4px 5px 0 var(--ink)}h2{font-size:18px}.step{width:29px;height:29px;margin-right:9px}.buttons button{padding:10px 12px}input,select,textarea,#blog-code,.library-card select{font-size:16px;min-height:44px}summary{font-size:16px;min-height:44px}.library-actions button{font-size:13px}#blog-options{padding:2px 12px}.library-card{padding:14px}#draft-panel{padding:10px 18px}#draft-panel .buttons{margin:7px 0}footer{font-size:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}button,.quick-links a{transition:none}}
+#manual-rich{margin-top:18px;padding:18px;background:white;border:1px solid #b8aa96;border-radius:10px;overflow-wrap:anywhere;text-align:center;user-select:text;-webkit-user-select:text;-webkit-touch-callout:default}#manual-rich img{max-width:100%;height:auto}#manual-text{margin-top:18px;user-select:text;-webkit-user-select:text}#manual-rich[hidden],#manual-text[hidden]{display:none}.save-file-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);border-radius:999px;box-shadow:3px 3px 0 var(--ink);padding:10px 17px;font-size:14px;font-weight:700;text-decoration:none;overflow-wrap:anywhere;max-width:100%}button{touch-action:manipulation}#download-fallback .buttons{align-items:center}
 </style>
 </head>
 <body>
@@ -50,7 +51,7 @@ textarea,input[type='number'],input[type='file'],.search-row input,.filename-nam
 <summary>자주 쓰는 이미지 보관함</summary>
 <p class="note">명함·로고 등을 한 번 저장해 두고 다시 사용하세요. 각 이미지의 삽입 위치를 따로 선택할 수 있습니다. 이 브라우저에 저장되며 다른 기기와 동기화되지 않습니다.</p>
 <label for="library-upload">보관함에 이미지 추가</label><input id="library-upload" type="file" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
-<p class="note">JPG·PNG·WebP, 파일당 10MB·보관함 전체 100MB까지 지원합니다. 브라우저의 사이트 데이터를 지우면 저장한 이미지도 삭제됩니다.</p>
+<p class="note">JPG·PNG·WebP, 파일당 10MB·보관함 전체 100MB까지 지원합니다. 아이폰 HEIC 사진은 JPG 또는 PNG로 변환한 뒤 추가해 주세요. 브라우저의 사이트 데이터를 지우면 저장한 이미지도 삭제됩니다.</p>
 <div id="library-list" class="library-grid"></div>
 <p id="library-status" class="note" role="status" aria-live="polite">저장한 이미지를 불러오는 중입니다.</p>
 <p class="note">‘블로그 내용 복사’에는 선택한 이미지가 함께 포함됩니다. 블로그 편집기가 이미지를 붙여 넣지 못하면 보관함의 다운로드 버튼으로 받아 직접 첨부하세요.</p>
@@ -63,7 +64,7 @@ textarea,input[type='number'],input[type='file'],.search-row input,.filename-nam
 <p id="blog-contact-status" class="note" role="status" aria-live="polite"></p>
 </div>
 <div class="row bottom"><span class="counter" id="blog-state">HTML 코드를 입력하면 아래에 미리보기가 나타납니다.</span></div>
-<p class="note">전체 글을 가운데 정렬하여 미리보기와 복사에 적용합니다. 복사 후 블로그 글쓰기 화면에 Ctrl+V 또는 ⌘V로 붙여 넣으세요. 서식은 블로그 편집기가 지원하는 범위에서 유지됩니다.</p>
+<p class="note">전체 글을 가운데 정렬하여 미리보기와 복사에 적용합니다. 휴대폰에서는 블로그 입력창을 길게 눌러 붙여넣기를 선택하세요. 컴퓨터에서는 Ctrl+V 또는 ⌘V를 사용할 수 있습니다. 서식은 블로그 편집기가 지원하는 범위에서 유지됩니다.</p>
 </details>
 <div class="row bottom"><button class="primary" id="copy-blog" disabled>블로그 내용 복사</button></div>
 <div id="blog-result" hidden><h3 class="preview-label">블로그 미리보기</h3><iframe id="blog-frame" title="블로그 HTML 미리보기" sandbox="allow-same-origin allow-top-navigation-to-custom-protocols" referrerpolicy="no-referrer"></iframe></div>
@@ -71,7 +72,7 @@ textarea,input[type='number'],input[type='file'],.search-row input,.filename-nam
 </section>
 <section class="card" aria-labelledby="gps-title">
 <h2 id="gps-title"><span class="step">4</span>이미지 GPS 위치정보 수정</h2>
-<p class="note">여러 이미지를 선택하면 한 장씩 순서대로 처리합니다. JPG·PNG·WebP, 파일당 30MB·전체 300MB까지 지원합니다.</p>
+<p class="note">여러 이미지를 선택하면 한 장씩 순서대로 처리합니다. JPG·PNG·WebP, 파일당 30MB·전체 300MB까지 지원합니다. 아이폰 HEIC 사진은 JPG 또는 PNG로 변환한 뒤 선택해 주세요.</p>
 <label for="gps-mode">GPS 수정 방식</label>
 <select id="gps-mode"><option value="remove">GPS 위치정보 삭제</option><option value="set">입력한 위도·경도로 변경</option></select>
 <div class="location-picker">
@@ -100,7 +101,8 @@ textarea,input[type='number'],input[type='file'],.search-row input,.filename-nam
 <p id="gps-status" class="note" role="status" aria-live="polite"></p>
 </section>
 <div id="status" role="status" aria-live="polite"></div>
-<section id="manual" hidden><p>자동 복사를 사용할 수 없습니다. 아래 내용을 선택한 뒤 Ctrl+C 또는 ⌘C로 복사하세요.</p><textarea id="manual-text" readonly aria-label="수동 복사할 내용"></textarea></section>
+<section id="manual" class="card" hidden><h3>직접 복사하기</h3><p id="manual-copy-status" role="status" aria-live="polite"></p><div class="buttons"><button id="manual-copy" type="button">다시 복사</button><button id="manual-select" type="button">전체 선택</button></div><textarea id="manual-text" readonly aria-label="수동 복사할 내용"></textarea><div id="manual-rich" hidden tabindex="0" aria-label="길게 눌러 복사할 블로그 내용"></div></section>
+<section id="download-fallback" class="card" hidden><h3>파일 저장</h3><div class="buttons"><a id="save-file-link" class="save-file-link" download>파일 다운로드</a><button id="share-file" type="button" hidden>공유 · 파일 앱에 저장</button></div><p class="note">다운로드가 시작되지 않으면 위 파일 다운로드를 눌러 주세요. 아이폰에서는 공유 메뉴의 ‘파일에 저장’을 사용할 수 있습니다. 여러 이미지는 ZIP으로 한 번에 저장하는 것이 편합니다.</p><p id="save-file-status" class="note" role="status"></p></section>
 <details class="card" id="draft-panel"><summary id="draft-title">자동 저장 · 입력 히스토리</summary>
 <div class="row"><div class="buttons"><button id="draft-save" type="button">지금 저장</button><button id="draft-reset" type="button">입력값 리셋하기</button></div></div>
 <p class="note">입력할 때마다 자동 저장합니다. 같은 탭에서 작업하는 동안 하나의 히스토리를 계속 갱신하고, 새 탭으로 다시 열면 새 작업 기록을 만듭니다. 새로고침은 같은 기록을 유지합니다. 생성 후 7일 이내의 최근 50개 기록을 같은 브라우저에서 불러올 수 있습니다. 기록은 각각 생성 후 7일이 지나면 목록에서 사라집니다. 원문·HTML·전화번호·GPS 설정·이미지 삽입 설정을 저장합니다. GPS 작업용 업로드 파일은 다시 선택해 주세요.</p>
@@ -114,6 +116,7 @@ textarea,input[type='number'],input[type='file'],.search-row input,.filename-nam
 <script src="gps-editor.js"></script>
 <script src="gps-archive.js"></script>
 <script src="image-library.js"></script>
+<script src="mobile-compat.js"></script>
 <script id="gps-places" type="application/json">[
 {"name":"NLCS","fullName":"노스런던컬리지에잇스쿨 제주","group":"국제학교","lat":33.2977115,"lon":126.2887232,"source":"https://www.openstreetmap.org/relation/11636223"},
 {"name":"BHA","fullName":"브랭섬홀아시아","group":"국제학교","lat":33.2907439,"lon":126.2875450,"source":"https://www.openstreetmap.org/way/424918887"},
@@ -133,17 +136,15 @@ const status = document.getElementById('status');
 const copyPrompt = document.getElementById('copy-prompt');
 function buildPrompt(text) {return data.prefix + '\n'.repeat(10) + text + '\n'.repeat(5) + data.suffix;}
 function update(){const text=original.value;document.getElementById('count').textContent=Array.from(text).length.toLocaleString('ko-KR')+'자';copyPrompt.disabled=!text.trim();document.getElementById('preview').textContent=text.trim()?buildPrompt(text):'원문을 입력하면 완성된 프롬프트가 표시됩니다.';}
-async function copyText(text,label){
- document.getElementById('manual').hidden=true;
- try{if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');await navigator.clipboard.writeText(text);status.textContent=label+' 복사 완료';return;}catch{}
- const temp=document.createElement('textarea');temp.value=text;temp.style.cssText='position:fixed;top:0;left:-9999px';document.body.appendChild(temp);temp.select();let copied=false;try{copied=document.execCommand('copy');}catch{}temp.remove();
- if(copied){status.textContent=label+' 복사 완료';return;}
- const manual=document.getElementById('manual-text');manual.value=text;document.getElementById('manual').hidden=false;manual.focus();manual.select();status.textContent='직접 복사할 수 있도록 내용을 선택했습니다.';
-}
+let manualCopyContent=null;
+function showManualCopy(content,messageTarget){manualCopyContent=content;const panel=document.getElementById('manual');panel.hidden=false;const text=document.getElementById('manual-text'),rich=document.getElementById('manual-rich');text.hidden=Boolean(content.html);rich.hidden=!content.html;text.value=content.text;rich.innerHTML=content.html||'';document.getElementById('manual-copy-status').textContent='자동 복사가 제한되었습니다. 아래 복사 버튼을 누르거나 내용을 길게 눌러 전체 선택 → 복사를 선택하세요.';messageTarget.textContent='자동 복사가 제한되어 수동 복사 화면을 열었습니다.';panel.scrollIntoView({behavior:'smooth',block:'center'});}
+document.getElementById('manual-copy').addEventListener('click',async()=>{if(!manualCopyContent)return;const content=manualCopyContent;const copied=MobileClipboard.legacy(content)||await MobileClipboard.write(content);document.getElementById('manual-copy-status').textContent=copied?'복사 완료. 블로그 글쓰기 화면에 붙여 넣으세요.':'아래 내용을 길게 눌러 전체 선택 → 복사를 선택하세요.';});
+document.getElementById('manual-select').addEventListener('click',()=>{if(!manualCopyContent)return;const rich=document.getElementById('manual-rich'),text=document.getElementById('manual-text');if(manualCopyContent.html){const selection=getSelection(),range=document.createRange();range.selectNodeContents(rich);selection.removeAllRanges();selection.addRange(range);}else{text.focus();text.select();text.setSelectionRange(0,text.value.length);}document.getElementById('manual-copy-status').textContent='내용을 선택했습니다. 길게 눌러 복사를 선택하세요. 컴퓨터에서는 Ctrl+C 또는 ⌘C를 사용할 수 있습니다.';});
+async function copyText(text,label){document.getElementById('manual').hidden=true;const content={text};if(await MobileClipboard.write(content)){status.textContent=label+' 복사 완료';return;}showManualCopy(content,status);}
 original.addEventListener('input',update);
 document.getElementById('copy-rules').addEventListener('click',()=>copyText(data.rules,'서식 규칙'));
 copyPrompt.addEventListener('click',()=>{if(original.value.trim())copyText(buildPrompt(original.value),'프롬프트');});
-document.getElementById('download-rules').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([data.rules],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='서식규칙.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);status.textContent='서식규칙.txt 다운로드를 시작했습니다. 다운로드한 파일을 채팅창에 첨부하세요.';});
+document.getElementById('download-rules').addEventListener('click',()=>{downloadBlob(new Blob([data.rules],{type:'text/plain;charset=utf-8'}),'서식규칙.txt');status.textContent='서식규칙.txt 다운로드를 시작했습니다. 다운로드한 파일을 채팅창에 첨부하세요.';});
 update();
 const blogCode=document.getElementById('blog-code');
 const blogFrame=document.getElementById('blog-frame');
@@ -208,20 +209,10 @@ function renderedClipboard(){
 }
 copyBlog.addEventListener('click',async()=>{
  if(copyBlog.disabled)return;
- const revision=blogRevision;
- const content=renderedClipboard();
- try{
-  if(!navigator.clipboard?.write||typeof ClipboardItem==='undefined')throw new Error('Rich clipboard unavailable');
-  await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([content.html],{type:'text/html'}),'text/plain':new Blob([content.text],{type:'text/plain'})})]);
-  blogStatus.textContent=revision===blogRevision?'블로그 내용 복사 완료. 블로그 글쓰기 화면에 붙여 넣으세요.':'복사 후 코드가 변경되었습니다. 다시 복사해 주세요.';
-  return;
- }catch{}
- const target=document.createElement('div');target.contentEditable='true';target.style.cssText='position:fixed;left:-9999px;top:0';target.innerHTML=content.html;document.body.appendChild(target);
- const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(target);selection.removeAllRanges();selection.addRange(range);
- const onCopy=event=>{if(event.clipboardData){event.clipboardData.setData('text/html',content.html);event.clipboardData.setData('text/plain',content.text);event.preventDefault();}};
- document.addEventListener('copy',onCopy);let copied=false;try{copied=document.execCommand('copy');}catch{}document.removeEventListener('copy',onCopy);selection.removeAllRanges();target.remove();
- if(copied){blogStatus.textContent='블로그 내용 복사 완료. 블로그 글쓰기 화면에 붙여 넣으세요.';return;}
- blogFrame.focus();const frameSelection=blogFrame.contentWindow.getSelection();const frameRange=blogFrame.contentDocument.createRange();frameRange.selectNodeContents(blogFrame.contentDocument.body);frameSelection.removeAllRanges();frameSelection.addRange(frameRange);blogStatus.textContent='미리보기의 전체 내용을 선택했습니다. Ctrl+C 또는 ⌘C로 복사한 뒤 블로그에 붙여 넣으세요.';
+ const revision=blogRevision;document.getElementById('manual').hidden=true;
+ let content;try{content=renderedClipboard();}catch{blogStatus.textContent='미리보기를 준비한 뒤 다시 복사해 주세요.';return;}
+ if(await MobileClipboard.write(content)){blogStatus.textContent=revision===blogRevision?'블로그 내용 복사 완료. 블로그 글쓰기 화면에 붙여 넣으세요.':'복사 후 코드가 변경되었습니다. 다시 복사해 주세요.';return;}
+ showManualCopy(content,blogStatus);
 });
 blogCode.addEventListener('input',updateBlog);
 const gpsMode=document.getElementById('gps-mode'),gpsFile=document.getElementById('gps-file'),gpsLat=document.getElementById('gps-lat'),gpsLon=document.getElementById('gps-lon'),gpsName=document.getElementById('gps-name'),gpsStatus=document.getElementById('gps-status'),gpsDownload=document.getElementById('download-gps'),gpsSequential=document.getElementById('download-gps-sequential');
@@ -240,7 +231,9 @@ function filenameLocationTag(options){return options.mode==='set'?options.label+
 function imageOutputName(file,options,index,total,kind){const stem=safeFilenamePart(file.name.replace(/\.[^.]*$/,''),'image');return (total>1?String(index+1).padStart(3,'0')+'_':'')+stem+'_'+filenameLocationTag(options)+'.'+(kind==='jpeg'?'jpg':kind);}
 
 function enableDownloads(){gpsDownload.disabled=gpsBusy||gpsDownloadBusy||!gpsOutputs.length;gpsSequential.disabled=gpsDownload.disabled;}
-function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+let readyDownload=null,readyDownloadURL='';
+function downloadBlob(blob,name){if(readyDownloadURL){const previous=readyDownloadURL;setTimeout(()=>URL.revokeObjectURL(previous),60000);}readyDownloadURL=URL.createObjectURL(blob);readyDownload=new File([blob],name,{type:blob.type});const panel=document.getElementById('download-fallback'),link=document.getElementById('save-file-link'),share=document.getElementById('share-file');panel.hidden=false;link.href=readyDownloadURL;link.download=name;link.textContent=name+' 다운로드';let canShare=false;try{canShare=Boolean(navigator.share&&navigator.canShare?.({files:[readyDownload]}));}catch{}share.hidden=!canShare;document.getElementById('save-file-status').textContent='저장할 파일이 준비되었습니다.';const a=document.createElement('a');a.href=readyDownloadURL;a.download=name;document.body.appendChild(a);a.click();a.remove();}
+document.getElementById('share-file').addEventListener('click',async()=>{if(!readyDownload||!navigator.share)return;try{await navigator.share({files:[readyDownload]});document.getElementById('save-file-status').textContent='공유 메뉴로 파일을 보냈습니다.';}catch(error){document.getElementById('save-file-status').textContent=error.name==='AbortError'?'공유를 취소했습니다. 파일 다운로드를 사용할 수 있습니다.':'공유할 수 없습니다. 파일 다운로드를 눌러 주세요.';}});
 function scheduleBatch(delay=200){
  const job=++gpsJob;clearTimeout(gpsTimer);gpsOutputs=[];gpsArchiveName='';gpsBusy=false;gpsDownloadBusy=false;enableDownloads();document.querySelectorAll('#gps-file-list button').forEach(b=>b.disabled=true);document.querySelectorAll('#gps-file-list .saved-filename').forEach(n=>n.remove());document.querySelectorAll('#gps-file-list .file-result').forEach(row=>{row.dataset.state='waiting';row.querySelector('.note').textContent='설정 변경 · 재처리 대기';});document.getElementById('gps-progress').value=0;document.getElementById('gps-summary').textContent='';document.getElementById('gps-result').hidden=!gpsFiles.length;
  if(!gpsFiles.length){gpsStatus.textContent='';return;}
