@@ -48,3 +48,5 @@ EXIF GPS를 수정하고 결과를 다시 읽어 검증합니다. 기존 GPS 태
 - ZIP 생성: `gps-archive.js` (STORE 방식, 이미지 재압축 없음)
 - 지도 데이터: [OpenStreetMap 기여자, ODbL](https://www.openstreetmap.org/copyright)
 - 오설록 좌표: [한국관광공사](https://data.visitkorea.or.kr/linkedview/2660802)
+
+3번 섹션의 HTML 결과는 원본 코드의 정렬 설정과 관계없이 전체 가운데 정렬로 표시하고 복사합니다. 표 자체도 가운데 배치합니다. 붙여넣기 결과는 블로그 편집기가 지원하는 서식에 따라 달라질 수 있습니다.

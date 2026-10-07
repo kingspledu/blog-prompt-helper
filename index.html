@@ -32,7 +32,7 @@
 <label for="blog-code">LLM에서 작성된 HTML 코드</label>
 <textarea id="blog-code" placeholder="LLM에서 작성된 HTML 코드를 여기에 붙여 넣으세요. HTML 코드 블록 전체를 붙여 넣어도 됩니다." spellcheck="false"></textarea>
 <div class="row bottom"><span class="counter" id="blog-state">HTML 코드를 입력하면 아래에 미리보기가 나타납니다.</span><button class="primary" id="copy-blog" disabled>블로그 내용 복사</button></div>
-<p class="note">복사 후 블로그 글쓰기 화면에 Ctrl+V 또는 ⌘V로 붙여 넣으세요. 색상·굵기·표 등은 블로그 편집기가 지원하는 범위에서 유지됩니다.</p>
+<p class="note">전체 글을 가운데 정렬하여 미리보기와 복사에 적용합니다. 복사 후 블로그 글쓰기 화면에 Ctrl+V 또는 ⌘V로 붙여 넣으세요. 서식은 블로그 편집기가 지원하는 범위에서 유지됩니다.</p>
 <div id="blog-result" hidden><h3 class="preview-label">블로그 미리보기</h3><iframe id="blog-frame" title="블로그 HTML 미리보기" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe></div>
 <p id="blog-status" class="note" role="status" aria-live="polite"></p>
 </section>
@@ -133,11 +133,16 @@ function updateBlog(){
  document.getElementById('blog-state').textContent=input.trim()?'미리보기를 준비하고 있습니다.':'HTML 코드를 입력하면 아래에 미리보기가 나타납니다.';
  if(!input.trim()){blogFrame.srcdoc='';return;}
  const markup=cleanBlogHTML(input);
- blogFrame.srcdoc='<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; style-src &#39;unsafe-inline&#39;; img-src https: http: data:; font-src &#39;none&#39;;"><style>body{margin:20px;color:#111;font:16px/2 \'Malgun Gothic\',sans-serif;overflow-wrap:anywhere}img{max-width:100%;height:auto}table{max-width:100%;border-collapse:collapse}.se-text-paragraph-align-center{text-align:center}.se-fs-fs16{font-size:16px}</style></head><body>'+markup+'</body></html>';
+ blogFrame.srcdoc='<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; style-src &#39;unsafe-inline&#39;; img-src https: http: data:; font-src &#39;none&#39;;"><style>body{margin:20px;color:#111;font:16px/2 \'Malgun Gothic\',sans-serif;overflow-wrap:anywhere}img{max-width:100%;height:auto}table{max-width:100%;border-collapse:collapse}.se-text-paragraph-align-center{text-align:center}.se-fs-fs16{font-size:16px}body,body *{text-align:center!important}table{margin-left:auto;margin-right:auto}</style></head><body>'+markup+'</body></html>';
 }
 blogFrame.addEventListener('load',()=>{
  if(!blogCode.value.trim())return;
- const body=blogFrame.contentDocument?.body;
+ const doc=blogFrame.contentDocument;
+ if(doc?.body){
+  for(const node of [doc.body,...doc.body.querySelectorAll('*')])node.style.setProperty('text-align','center','important');
+  doc.body.querySelectorAll('table').forEach(table=>{table.style.setProperty('margin-left','auto','important');table.style.setProperty('margin-right','auto','important');});
+ }
+ const body=doc?.body;
  const hasContent=body&&Boolean(body.innerText.trim()||body.querySelector('img,hr'));
  copyBlog.disabled=!hasContent;
  document.getElementById('blog-state').textContent=hasContent?'미리보기 준비 완료':'표시할 내용을 포함한 HTML 코드를 입력해 주세요.';
@@ -147,11 +152,12 @@ function renderedClipboard(){
  const clone=doc.body.cloneNode(true);
  const sourceNodes=[doc.body,...doc.body.querySelectorAll('*')];
  const targetNodes=[clone,...clone.querySelectorAll('*')];
- const properties=['color','background-color','font-size','font-family','font-weight','font-style','text-decoration','text-align','line-height','white-space','vertical-align','border-collapse','border-top','border-right','border-bottom','border-left','padding-top','padding-right','padding-bottom','padding-left','margin-top','margin-bottom','list-style-type','width','max-width'];
+ const properties=['color','background-color','font-size','font-family','font-weight','font-style','text-decoration','text-align','line-height','white-space','vertical-align','border-collapse','border-top','border-right','border-bottom','border-left','padding-top','padding-right','padding-bottom','padding-left','margin-top','margin-bottom','margin-left','margin-right','list-style-type','width','max-width'];
  sourceNodes.forEach((node,index)=>{
   if(node.tagName==='STYLE')return;
   const style=blogFrame.contentWindow.getComputedStyle(node);
   for(const property of properties)targetNodes[index].style.setProperty(property,style.getPropertyValue(property));
+  targetNodes[index].style.setProperty('text-align','center','important');
  });
  clone.querySelectorAll('style').forEach(node=>node.remove());
  return {html:'<div style="'+clone.getAttribute('style')+'">'+clone.innerHTML+'</div>',text:doc.body.innerText};
